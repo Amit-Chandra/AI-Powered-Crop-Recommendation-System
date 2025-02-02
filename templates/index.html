@@ -3,33 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crop Recommendation</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>AI Crop Recommendation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f7f6;
+        }
+        .container {
+            max-width: 700px;
+            margin-top: 50px;
+        }
+        .card {
+            border-radius: 15px;
+            padding: 20px;
+            background: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        .loading {
+            display: none;
+            text-align: center;
+        }
+        .btn-submit {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <form action="/predict" method="POST">
-        <label for="N">Nitrogen (N):</label>
-        <input type="number" id="N" name="N" required><br><br>
-    
-        <label for="P">Phosphorus (P):</label>
-        <input type="number" id="P" name="P" required><br><br>
-    
-        <label for="K">Potassium (K):</label>
-        <input type="number" id="K" name="K" required><br><br>
-    
-        <label for="temperature">Temperature (°C):</label>
-        <input type="number" id="temperature" name="temperature" step="0.1" required><br><br>
-    
-        <label for="humidity">Humidity (%):</label>
-        <input type="number" id="humidity" name="humidity" step="0.1" required><br><br>
-    
-        <label for="ph">pH Value:</label>
-        <input type="number" id="ph" name="ph" step="0.1" required><br><br>
-    
-        <label for="rainfall">Rainfall (mm):</label>
-        <input type="number" id="rainfall" name="rainfall" required><br><br>
-    
-        <input type="submit" value="Get Recommendation">
-    </form>    
+
+<div class="container">
+    <div class="card">
+        <h3 class="card-title text-center mb-4">AI Crop Recommendation</h3>
+        <form id="cropForm" method="POST" action="/predict">
+
+            <!-- <div class="mb-3">
+                <label for="N" class="form-label">Nitrogen (N)</label>
+                <input type="number" class="form-control" id="N" name="N" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="P" class="form-label">Phosphorus (P)</label>
+                <input type="number" class="form-control" id="P" name="P" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="K" class="form-label">Potassium (K)</label>
+                <input type="number" class="form-control" id="K" name="K" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="temperature" class="form-label">Temperature (°C)</label>
+                <input type="number" class="form-control" id="temperature" name="temperature" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="humidity" class="form-label">Humidity (%)</label>
+                <input type="number" class="form-control" id="humidity" name="humidity" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="ph" class="form-label">Soil pH</label>
+                <input type="number" class="form-control" id="ph" name="ph" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="rainfall" class="form-label">Rainfall (mm)</label>
+                <input type="number" class="form-control" id="rainfall" name="rainfall" required>
+            </div> -->
+
+
+            <div class="mb-3">
+                <label for="N" class="form-label">Nitrogen (N)</label>
+                <input type="number" class="form-control" id="N" name="N" step="any" required>
+            </div>
+            <div class="mb-3">
+                <label for="P" class="form-label">Phosphorus (P)</label>
+                <input type="number" class="form-control" id="P" name="P" step="any" required>
+            </div>
+            <div class="mb-3">
+                <label for="K" class="form-label">Potassium (K)</label>
+                <input type="number" class="form-control" id="K" name="K" step="any" required>
+            </div>
+            <div class="mb-3">
+                <label for="temperature" class="form-label">Temperature (°C)</label>
+                <input type="number" class="form-control" id="temperature" name="temperature" step="any" required>
+            </div>
+            <div class="mb-3">
+                <label for="humidity" class="form-label">Humidity (%)</label>
+                <input type="number" class="form-control" id="humidity" name="humidity" step="any" required>
+            </div>
+            <div class="mb-3">
+                <label for="ph" class="form-label">Soil pH</label>
+                <input type="number" class="form-control" id="ph" name="ph" step="any" required>
+            </div>
+            <div class="mb-3">
+                <label for="rainfall" class="form-label">Rainfall (mm)</label>
+                <input type="number" class="form-control" id="rainfall" name="rainfall" step="any" required>
+            </div>
+            
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-submit">Get Recommendation</button>
+            </div>
+        </form>
+
+
+        
+
+        <!-- Loading spinner -->
+        <div class="loading">
+            <img src="https://i.gifer.com/YCZH.gif" alt="Loading..." width="100">
+        </div>
+    </div>
+</div>
+
+<script>
+    // Show loading spinner on form submission
+    const form = document.getElementById('cropForm');
+    const loading = document.querySelector('.loading');
+
+    form.addEventListener('submit', function(e) {
+        loading.style.display = 'block'; // Show loading spinner
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
